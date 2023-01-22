@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b23df39df10fd49b35338f18e57c79, type: 3}
+  m_Name: Plains
+  m_EditorClassIdentifier: 
+  tile: {fileID: 11400000, guid: bea77d3cf2b2c7c4a977b0759c262e5a, type: 2}
+  encounterChance: 0.1
+  encounter: {fileID: 0}
+  highlightTile: {fileID: 11400000, guid: 066f2b4a96e4434479cf8b51ed182959, type: 2}
+  position: {x: 1, y: 1, z: 0}
