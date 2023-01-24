@@ -87,9 +87,21 @@ public class MapManager : MonoBehaviour
 		Paint(position, tile, layer);
 	}
 
+	public void PaintSingleTile(Vector3 position, TileBase tile, string layer = "base")
+	{
+		Vector3Int gridPosition = map.WorldToCell(position);
+		Paint(gridPosition, tile, layer);
+	}
+
 	public void PaintValidPath(Vector3Int position, bool isEnd = false)
 	{
 		this.PaintSingleTile(position, (isEnd ? movementEndArrow : movementArrow), "movementHighlight");
+		if (!isEnd)
+		{
+			float randomFloat = Random.Range(0.3f, 0.6f);
+			Vector3 randomScale = new Vector3(randomFloat, randomFloat, 1);
+			movementHighlight.SetTransformMatrix(position, Matrix4x4.Scale(randomScale));
+		}
 	}
 
 	public void PaintTiles(List<Vector3Int> positions, TileBase tile, string layer = "base")
@@ -164,6 +176,11 @@ public class MapManager : MonoBehaviour
 	public TileScriptable GetTileAt(Vector3Int position)
 	{
 		return mapTileData[position];
+	}
+	public TileScriptable GetTileAt(Vector3 position)
+	{
+		Vector3Int gridPosition = map.WorldToCell(position);
+		return mapTileData[gridPosition];
 	}
 
 	public List<Vector3Int> FindAllTileNeighbors(Vector3Int gameOjectPosition)

@@ -130,11 +130,17 @@ public class Party : MonoBehaviour
 			timeElapsed += Time.deltaTime;
 			float lerpStep = timeElapsed / movementDuration;
 			transform.position = Vector3.Lerp(mapManager.GetPlayerTileCenterPosition(startPosition), mapManager.GetPlayerTileCenterPosition(endPosition), lerpStep);
+
 			yield return null;
 		}
 
 		transform.position = endPosition;
 		Debug.Log("Transform.position " + transform.position);
+
+		//	Remove the movement highlight for each tile party goes to
+		mapManager.PaintSingleTile(endPosition, null, "movementHighlight");
+		//	Reduce movement points based on tile
+		movementPoints -= mapManager.GetTileAt(endPosition).movementCost;
 
 		if (pathPositions.Count > 0)
 		{
@@ -145,6 +151,10 @@ public class Party : MonoBehaviour
 		{
 			Vector3 gridPosition = mapManager.GetPlayerTilePosition(transform.position);
 			Debug.Log("Movement finished! " + transform.position + " Grid pos: " + gridPosition);
+			//	Clear paths
+			mapManager.HidePaths(this);
+			//	Recalculate paths based on existing movement.
+			mapManager.ShowPaths(this);
 			movementAnimator.enabled = false;
 			MovementFinished?.Invoke(this);
 		}
